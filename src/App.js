@@ -1,21 +1,30 @@
 import { useState } from 'react';
 
 function App() {
-  const [firstName, setFirstName] = useState('');
-  const [email, setEmail] = useState('');
+  // const [firstName, setFirstName] = useState('');
+  // const [email, setEmail] = useState('');
+  const [person, setPerson] = useState({ firstName: '', email: '', age: '' });
   const [people, setPeople] = useState([]);
 
+  const changeHandler = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setPerson({ ...person, [name]: value });
+  };
   const submitHandler = (e) => {
     e.preventDefault();
-    // console.log(`${firstName}, ${email}`);
-    if (firstName && email) {
-      const person = { firstName: firstName, email: email };
+    if (person.firstName && person.email) {
+      const newPerson = {
+        firstName: person.firstName,
+        email: person.email,
+      };
       setPeople((people) => {
-        return [...people, person];
+        return [...people, newPerson];
       });
+      setPerson({ firstName: '', email: '', age: '' });
+    } else {
+      console.log('empty value');
     }
-    setFirstName('');
-    setEmail('');
   };
   return (
     <>
@@ -28,10 +37,10 @@ function App() {
             <input
               type='text'
               id='firstName'
-              name='firstname'
+              name='firstName'
               className='m-1 transition hover:bg-blue-100 hover:scale-105 duration-300'
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={person.firstName}
+              onChange={changeHandler}
             />
           </div>
           <div className='m-2 bg-white'>
@@ -43,8 +52,8 @@ function App() {
               id='email'
               name='email'
               className='m-1 transition hover:bg-blue-100 hover:scale-105 duration-300'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={person.email}
+              onChange={changeHandler}
             />
           </div>
           <button
