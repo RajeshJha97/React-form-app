@@ -53,7 +53,7 @@ function App() {
           >
             Add Person
           </button>
-          <section className='bg-blue-100'>
+          <section className='bg-blue-100 ml-2 mr-2'>
             <main className='mb-2'>
               {people.map((person) => {
                 return (
